@@ -1,22 +1,16 @@
-name: coba cpanel
-on:
-  push:
-    branches:
-      - main
+on: push
+name: 🚀 Deploy website on push
 jobs:
-FTP-Deploy-Action:
-name: FTP-Deploy-Action
-runs-on : ubuntu-latest
-steps:
-       - uses: actions/checkout@v2.1.0
-        with:
-        fetch-depth: 2
-        - name : FTP-Deploy-Action
-        uses : SamKirland/FTP-Deploy-Action@3.1.1
-        with:
-        
-        
-          ftp-server: ${{ secrets.ftp_server }}
-          username: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
-          
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v6
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+      with:
+        server: ${{ secrets.ftp_server }}
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
